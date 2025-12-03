@@ -47,12 +47,21 @@ set -e # exit on error
 	# Custom transport map or advanced usage
 	transport_maps = pcre:/etc/postfix/transport_maps
 
+    # Header checks
+	header_checks = pcre:/etc/postfix/header_checks
+
 	# Some tweaks
 	biff = no
 	mailbox_size_limit = 0
 	readme_directory = no
 	recipient_delimiter = +
 	smtputf8_enable = no
+
+	# AWS SES requires TLS >= v1.2 by 2023-09-15
+	# https://aws.amazon.com/blogs/security/tls-1-2-required-for-aws-endpoints/
+	smtp_tls_mandatory_protocols  = >= TLSv1.2
+	smtp_tls_protocols            = >= TLSv1.2
+	smtp_tls_loglevel             = 1
 	EOF
 
 # Generate default postfix alias database
