@@ -8,7 +8,7 @@ set -e # exit on error
 
 	if [ -n "$RECIPIENT_RESTRICTIONS" ]; then
 	#	SMTPD_RECIPIENT_RESTRICTIONS="inline:{$(echo $RECIPIENT_RESTRICTIONS | sed 's/\s\+/=OK, /g')=OK}"
-	    SMTPD_RECIPIENT_RESTRICTIONS="inline:{$(echo $RECIPIENT_RESTRICTIONS)}"
+	SMTPD_RECIPIENT_RESTRICTIONS="$(RECIPIENT_RESTRICTIONS)"
 	fi
 
 # Relay SASL authentication
@@ -34,6 +34,7 @@ set -e # exit on error
 
 	# Relay configuration
 	relayhost = ${RELAY_HOST}:${RELAY_PORT}
+	smtpd_relay_before_recipient_restrictions = yes 
 	smtp_sasl_auth_enable = ${RELAY_AUTH_ENABLE}
 	smtp_sasl_password_maps = ${RELAY_AUTH_PASSWORD_MAPS}
 	smtp_sasl_security_options = noanonymous
