@@ -7,7 +7,8 @@ set -e # exit on error
 	SMTPD_RECIPIENT_RESTRICTIONS="static:OK"
 
 	if [ -n "$RECIPIENT_RESTRICTIONS" ]; then
-		SMTPD_RECIPIENT_RESTRICTIONS="inline:{$(echo $RECIPIENT_RESTRICTIONS | sed 's/\s\+/=OK, /g')=OK}"
+	#	SMTPD_RECIPIENT_RESTRICTIONS="inline:{$(echo $RECIPIENT_RESTRICTIONS | sed 's/\s\+/=OK, /g')=OK}"
+	    SMTPD_RECIPIENT_RESTRICTIONS="inline:{$(echo $RECIPIENT_RESTRICTIONS)}"
 	fi
 
 # Relay SASL authentication
